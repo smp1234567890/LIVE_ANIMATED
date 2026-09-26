@@ -10,7 +10,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     1. DYNAMIC REAL-TIME CLOCK (LIGHTWEIGHT TICKER)
+     1. ZERO URL-CHANGE SMOOTH NAVIGATION (TABS & HOME)
+     ========================================================================== */
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+
+    e.preventDefault(); // Completely prevents hash from appearing in browser URL!
+
+    const targetId = link.getAttribute('href');
+
+    if (!targetId || targetId === '#') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
+
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      const headerOffset = 80; // Account for fixed header height
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
+
+  /* ==========================================================================
+     2. DYNAMIC REAL-TIME CLOCK (LIGHTWEIGHT TICKER)
      ========================================================================== */
   const timeEl = document.getElementById('current-time');
   function updateTime() {
