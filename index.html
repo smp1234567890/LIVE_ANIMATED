@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA — Digital Craft & Visual Artistry</title>
+  
+  <!-- Google Fonts: Syne, Plus Jakarta Sans, Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN with configuration -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            noir: '#070709',
+            surface: '#0e0e12',
+            accent: '#d4af37'
+          },
+          fontFamily: {
+            syne: ['Syne', 'sans-serif'],
+            cinzel: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-noir text-light selection:bg-accent selection:text-noir overflow-x-hidden">
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor pointer-events-none fixed top-0 left-0 z-50 rounded-full mix-blend-difference"></div>
+  <div class="cursor-follower pointer-events-none fixed top-0 left-0 z-50 rounded-full border border-white/30 backdrop-blur-[1px] transition-transform duration-150 ease-out">
+    <span class="cursor-text text-[10px] tracking-widest font-semibold uppercase text-white opacity-0"></span>
+  </div>
+
+  <!-- Ambient Sound / Visualizer Toggle -->
+  <button id="audio-toggle" class="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-xs font-mono tracking-widest uppercase text-white/70 hover:text-white hover:border-white/30 transition-all group" aria-label="Toggle Sound Atmosphere">
+    <span class="sound-wave flex items-center gap-[3px] h-3">
+      <span class="bar h-full w-[2px] bg-accent/80 rounded-full"></span>
+      <span class="bar h-2/3 w-[2px] bg-accent/80 rounded-full"></span>
+      <span class="bar h-4/5 w-[2px] bg-accent/80 rounded-full"></span>
+      <span class="bar h-1/2 w-[2px] bg-accent/80 rounded-full"></span>
+    </span>
+    <span id="audio-label">SOUND [OFF]</span>
+  </button>
+
+  <!-- Interactive Background Canvas (Nebula & Particles) -->
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+  <div class="noise-overlay fixed inset-0 pointer-events-none z-10 opacity-30"></div>
+
+  <!-- Header / Navigation -->
+  <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 px-6 md:px-14 py-6 flex items-center justify-between backdrop-blur-sm bg-transparent">
+    <a href="#" class="brand group flex items-center gap-2" data-cursor="hover">
+      <div class="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center relative overflow-hidden group-hover:border-accent transition-colors">
+        <span class="w-2.5 h-2.5 rounded-full bg-accent animate-ping absolute opacity-50"></span>
+        <span class="w-2 h-2 rounded-full bg-accent"></span>
+      </div>
+      <span class="font-syne font-extrabold tracking-wider text-xl text-white">AURA<span class="text-accent">.</span></span>
+    </a>
+
+    <!-- Nav Links -->
+    <nav class="hidden md:flex items-center gap-8 bg-white/[0.03] border border-white/10 px-8 py-2.5 rounded-full backdrop-blur-md shadow-2xl">
+      <a href="#about" class="nav-link text-xs uppercase tracking-widest font-mono text-white/60 hover:text-white transition-colors" data-cursor="hover">Philosophy</a>
+      <a href="#works" class="nav-link text-xs uppercase tracking-widest font-mono text-white/60 hover:text-white transition-colors" data-cursor="hover">Selected Works</a>
+      <a href="#services" class="nav-link text-xs uppercase tracking-widest font-mono text-white/60 hover:text-white transition-colors" data-cursor="hover">Capabilities</a>
+      <a href="#insights" class="nav-link text-xs uppercase tracking-widest font-mono text-white/60 hover:text-white transition-colors" data-cursor="hover">Journal</a>
+    </nav>
+
+    <!-- CTA & Time -->
+    <div class="flex items-center gap-4">
+      <div class="hidden lg:flex items-center gap-2 font-mono text-[11px] text-white/40 tracking-wider">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="current-time">12:00 UTC</span>
+      </div>
+      <a href="#contact" class="magnetic-btn px-5 py-2.5 rounded-full bg-white text-black font-syne font-bold text-xs uppercase tracking-wider hover:bg-accent hover:text-black transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]" data-cursor="magnetic">
+        Let's Talk
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="relative z-20">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 md:px-14 pt-28 pb-12 overflow-hidden">
+      <!-- Glow ambient backdrops -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-accent/20 to-purple-600/15 rounded-full blur-[140px] pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto w-full relative z-10">
+        <!-- Pre-title badge -->
+        <div class="hero-badge inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+          <span class="font-mono text-[11px] uppercase tracking-widest text-white/80">Digital Atelier & Visual Alchemy</span>
+        </div>
+
+        <!-- Hero Headline with Kinetic Stagger -->
+        <h1 class="hero-title font-syne font-extrabold text-5xl sm:text-7xl lg:text-9xl leading-[0.92] tracking-tight uppercase mb-8">
+          <div class="overflow-hidden"><span class="reveal-line inline-block">Crafting</span></div>
+          <div class="overflow-hidden">
+            <span class="reveal-line inline-block italic font-cinzel font-light text-gradient-gold">Hypnotic</span>
+            <span class="reveal-line inline-block">Dimensions</span>
+          </div>
+          <div class="overflow-hidden"><span class="reveal-line inline-block text-white/40">& Sensations.</span></div>
+        </h1>
+
+        <!-- Subheadline & Action Row -->
+        <div class="grid md:grid-cols-12 gap-8 items-end pt-6 border-t border-white/10">
+          <p class="hero-desc md:col-span-6 font-sans text-lg md:text-xl text-white/70 font-light leading-relaxed">
+            We blend avant-garde motion, procedural technology, and sensory storytelling to engineer digital spaces that capture hearts and shape cultural impact.
+          </p>
+
+          <div class="hero-actions md:col-span-6 flex flex-wrap items-center md:justify-end gap-5">
+            <a href="#works" class="group flex items-center gap-3 px-8 py-4 rounded-full bg-white/10 hover:bg-white border border-white/20 hover:border-white text-white hover:text-black font-syne font-bold text-sm tracking-wider uppercase transition-all duration-300" data-cursor="hover">
+              <span>Explore Creations</span>
+              <i data-lucide="arrow-down-right" class="w-4 h-4 transition-transform group-hover:rotate-45"></i>
+            </a>
+            <div class="flex items-center gap-3 pl-2">
+              <div class="flex -space-x-3">
+                <div class="w-9 h-9 rounded-full border-2 border-noir bg-neutral-800 flex items-center justify-center font-mono text-[10px] text-accent font-bold">01</div>
+                <div class="w-9 h-9 rounded-full border-2 border-noir bg-neutral-700 flex items-center justify-center font-mono text-[10px] text-white font-bold">02</div>
+                <div class="w-9 h-9 rounded-full border-2 border-noir bg-accent/80 flex items-center justify-center font-mono text-[10px] text-noir font-bold">03</div>
+              </div>
+              <span class="font-mono text-xs text-white/50">Award-winning 2026 Index</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity">
+        <span class="font-mono text-[10px] uppercase tracking-widest text-white/50">Scroll to Explore</span>
+        <div class="w-5 h-9 rounded-full border border-white/30 flex justify-center p-1.5">
+          <div class="w-1 h-2 bg-accent rounded-full animate-bounce"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE TICKER SECTION -->
+    <div class="marquee-wrapper relative overflow-hidden py-6 border-y border-white/10 bg-white/[0.02]">
+      <div class="marquee-track flex whitespace-nowrap gap-12 font-syne text-3xl md:text-5xl font-extrabold uppercase tracking-wider text-white/20 select-none">
+        <span>IMMERSIVE 3D</span>
+        <span class="text-accent">✦</span>
+        <span>KINETIC TYPOGRAPHY</span>
+        <span class="text-accent">✦</span>
+        <span>CREATIVE DIRECTION</span>
+        <span class="text-accent">✦</span>
+        <span>GENERATIVE AI</span>
+        <span class="text-accent">✦</span>
+        <span>SOUND ARCHITECTURE</span>
+        <span class="text-accent">✦</span>
+        <span>IMMERSIVE 3D</span>
+        <span class="text-accent">✦</span>
+        <span>KINETIC TYPOGRAPHY</span>
+        <span class="text-accent">✦</span>
+        <span>CREATIVE DIRECTION</span>
+        <span class="text-accent">✦</span>
+        <span>GENERATIVE AI</span>
+        <span class="text-accent">✦</span>
+        <span>SOUND ARCHITECTURE</span>
+      </div>
+    </div>
+
+    <!-- PHILOSOPHY / ABOUT SECTION -->
+    <section id="about" class="py-32 px-6 md:px-14 relative">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-12 gap-16 items-start">
+          <div class="lg:col-span-5 sticky top-32">
+            <span class="font-mono text-xs text-accent tracking-widest uppercase block mb-3">// 01 PHILOSOPHY</span>
+            <h2 class="font-syne text-4xl sm:text-5xl font-extrabold uppercase tracking-tight text-white mb-6">
+              Engineering the boundary between <span class="italic font-cinzel text-accent font-light">art</span> and <span class="text-white/40">computation</span>.
+            </h2>
+            <p class="text-white/70 leading-relaxed font-light mb-8">
+              We reject sterile web templates in favor of bespoke emotional ecosystems. Every particle, transition, and curve is sculpted to induce wonder and evoke visceral connection.
+            </p>
+            <div class="grid grid-cols-2 gap-6 pt-6 border-t border-white/10">
+              <div>
+                <h4 class="font-syne text-4xl font-extrabold text-white counter" data-target="99.8">0</h4>
+                <p class="font-mono text-xs text-white/50 mt-1 uppercase tracking-wider">% Aesthetic Purity</p>
+              </div>
+              <div>
+                <h4 class="font-syne text-4xl font-extrabold text-accent counter" data-target="38">0</h4>
+                <p class="font-mono text-xs text-white/50 mt-1 uppercase tracking-wider">Awwwards & FWA Honors</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 flex flex-col gap-8">
+            <!-- Feature Card 1 -->
+            <div class="spotlight-card group p-8 md:p-10 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-accent/40 transition-all duration-500 relative overflow-hidden" data-cursor="hover">
+              <div class="flex items-center justify-between mb-8">
+                <span class="font-mono text-xs text-white/40">// SPEC 01</span>
+                <i data-lucide="sparkles" class="w-6 h-6 text-accent group-hover:scale-125 transition-transform duration-300"></i>
+              </div>
+              <h3 class="font-syne text-2xl font-bold uppercase text-white mb-3">Hypnotic Fluidity</h3>
+              <p class="text-white/65 leading-relaxed font-light">
+                Physics-based micro-interactions and sub-millisecond motion response curves give the interface tactile weight, making every scroll, click, and drag feel alive.
+              </p>
+            </div>
+
+            <!-- Feature Card 2 -->
+            <div class="spotlight-card group p-8 md:p-10 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-accent/40 transition-all duration-500 relative overflow-hidden" data-cursor="hover">
+              <div class="flex items-center justify-between mb-8">
+                <span class="font-mono text-xs text-white/40">// SPEC 02</span>
+                <i data-lucide="layers" class="w-6 h-6 text-purple-400 group-hover:scale-125 transition-transform duration-300"></i>
+              </div>
+              <h3 class="font-syne text-2xl font-bold uppercase text-white mb-3">Sculpted WebGL & Shaders</h3>
+              <p class="text-white/65 leading-relaxed font-light">
+                Custom GPU-accelerated fragment shaders and procedural geometries that run flawlessly at constant 60 to 120 FPS across modern displays.
+              </p>
+            </div>
+
+            <!-- Feature Card 3 -->
+            <div class="spotlight-card group p-8 md:p-10 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-accent/40 transition-all duration-500 relative overflow-hidden" data-cursor="hover">
+              <div class="flex items-center justify-between mb-8">
+                <span class="font-mono text-xs text-white/40">// SPEC 03</span>
+                <i data-lucide="orbit" class="w-6 h-6 text-cyan-400 group-hover:scale-125 transition-transform duration-300"></i>
+              </div>
+              <h3 class="font-syne text-2xl font-bold uppercase text-white mb-3">Harmonic Spatial Sound</h3>
+              <p class="text-white/65 leading-relaxed font-light">
+                Subtle binaural audio cues and dynamic synth textures that respond organically to interaction states, providing a multi-sensory journey.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORKS / PORTFOLIO -->
+    <section id="works" class="py-32 px-6 md:px-14 relative bg-black/40">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <span class="font-mono text-xs text-accent tracking-widest uppercase block mb-3">// 02 PORTFOLIO ARCHIVE</span>
+            <h2 class="font-syne text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-white">
+              Selected <span class="italic font-cinzel text-accent font-light">Artifacts</span>
+            </h2>
+          </div>
+          <!-- Filter Tags -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button class="filter-btn active px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-white/20 bg-white text-black" data-filter="all">All (04)</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-white/10 bg-white/5 text-white/60 hover:text-white" data-filter="webgl">3D / WebGL</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-white/10 bg-white/5 text-white/60 hover:text-white" data-filter="luxury">Luxury Brand</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-white/10 bg-white/5 text-white/60 hover:text-white" data-filter="fintech">Fintech</button>
+          </div>
+        </div>
+
+        <!-- Works Grid -->
+        <div class="grid md:grid-cols-2 gap-10">
+          
+          <!-- Project 1 -->
+          <div class="project-card group relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/10" data-category="webgl luxury" data-cursor="explore">
+            <div class="aspect-[16/10] overflow-hidden relative">
+              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-amber-600/30 via-violet-900/40 to-black z-0 transition-transform duration-700 group-hover:scale-110"></div>
+              <!-- Generative visual element inside card -->
+              <div class="absolute inset-0 flex items-center justify-center p-8 z-10">
+                <div class="w-48 h-48 rounded-full border border-amber-300/40 flex items-center justify-center group-hover:rotate-90 transition-transform duration-1000 ease-out backdrop-blur-sm shadow-[0_0_50px_rgba(217,119,6,0.2)]">
+                  <div class="w-32 h-32 rounded-2xl border border-white/30 rotate-45 group-hover:-rotate-45 transition-transform duration-1000 ease-out"></div>
+                </div>
+              </div>
+              <div class="absolute top-6 left-6 z-20">
+                <span class="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 font-mono text-[10px] uppercase tracking-widest text-white/80">3D Interactive</span>
+              </div>
+              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
+                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <div class="p-8">
+              <div class="flex items-center justify-between text-xs font-mono text-white/40 mb-2">
+                <span>CHRONO / HOROLOGY</span>
+                <span>2026</span>
+              </div>
+              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-accent transition-colors">Aethelgard High Horology</h3>
+              <p class="text-white/60 text-sm font-light mt-2">Interactive 3D tour of Swiss skeleton tourbillons with micro-physics simulation.</p>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card group relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/10" data-category="webgl fintech" data-cursor="explore">
+            <div class="aspect-[16/10] overflow-hidden relative">
+              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-cyan-600/30 via-blue-900/40 to-black z-0 transition-transform duration-700 group-hover:scale-110"></div>
+              <div class="absolute inset-0 flex items-center justify-center p-8 z-10">
+                <div class="w-44 h-44 rounded-full border border-cyan-400/40 flex items-center justify-center group-hover:scale-125 transition-transform duration-1000 ease-out backdrop-blur-sm">
+                  <div class="w-24 h-24 rounded-full border border-white/40 animate-pulse"></div>
+                </div>
+              </div>
+              <div class="absolute top-6 left-6 z-20">
+                <span class="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 font-mono text-[10px] uppercase tracking-widest text-white/80">Fintech Protocol</span>
+              </div>
+              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
+                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <div class="p-8">
+              <div class="flex items-center justify-between text-xs font-mono text-white/40 mb-2">
+                <span>QUANTUM / PROTOCOL</span>
+                <span>2026</span>
+              </div>
+              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-accent transition-colors">Nexus Liquidity Engine</h3>
+              <p class="text-white/60 text-sm font-light mt-2">Real-time dynamic data visualization handling \$4.2B in algorithmic settlement.</p>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="project-card group relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/10" data-category="luxury" data-cursor="explore">
+            <div class="aspect-[16/10] overflow-hidden relative">
+              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-rose-600/30 via-purple-900/40 to-black z-0 transition-transform duration-700 group-hover:scale-110"></div>
+              <div class="absolute inset-0 flex items-center justify-center p-8 z-10">
+                <div class="w-40 h-40 border-2 border-rose-400/40 rotate-12 group-hover:rotate-90 transition-transform duration-1000 ease-out backdrop-blur-sm"></div>
+              </div>
+              <div class="absolute top-6 left-6 z-20">
+                <span class="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 font-mono text-[10px] uppercase tracking-widest text-white/80">Haute Parfumerie</span>
+              </div>
+              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
+                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <div class="p-8">
+              <div class="flex items-center justify-between text-xs font-mono text-white/40 mb-2">
+                <span>OLFACTIVE / ATELIER</span>
+                <span>2025</span>
+              </div>
+              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-accent transition-colors">Maison De Nocturne</h3>
+              <p class="text-white/60 text-sm font-light mt-2">Sensory digital fragrance pairing with synesthetic visual feedback.</p>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="project-card group relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/10" data-category="webgl fintech" data-cursor="explore">
+            <div class="aspect-[16/10] overflow-hidden relative">
+              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-emerald-600/30 via-teal-950/50 to-black z-0 transition-transform duration-700 group-hover:scale-110"></div>
+              <div class="absolute inset-0 flex items-center justify-center p-8 z-10">
+                <div class="w-44 h-44 rounded-full border border-emerald-400/40 flex items-center justify-center group-hover:scale-95 transition-transform duration-700 ease-out">
+                  <div class="w-20 h-20 rounded-full border border-dashed border-emerald-300 animate-spin" style="animation-duration: 12s;"></div>
+                </div>
+              </div>
+              <div class="absolute top-6 left-6 z-20">
+                <span class="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 font-mono text-[10px] uppercase tracking-widest text-white/80">Spatial Architecture</span>
+              </div>
+              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
+                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <div class="p-8">
+              <div class="flex items-center justify-between text-xs font-mono text-white/40 mb-2">
+                <span>SPATIAL / ARCH</span>
+                <span>2025</span>
+              </div>
+              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-accent transition-colors">Vanderbilt Glass Pavilion</h3>
+              <p class="text-white/60 text-sm font-light mt-2">BIM-integrated interactive solar path and generative acoustic simulation.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE EXPERIMENT PLAYGROUND -->
+    <section class="py-28 px-6 md:px-14 border-t border-white/10 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto text-center mb-16">
+        <span class="font-mono text-xs text-accent tracking-widest uppercase block mb-3">// 03 SENSORY LAB</span>
+        <h2 class="font-syne text-4xl sm:text-5xl font-extrabold uppercase text-white">
+          Interactive Harmonic Shader
+        </h2>
+        <p class="text-white/60 font-light max-w-xl mx-auto mt-4 text-sm">
+          Move your cursor across the canvas below to distort the dynamic electromagnetic wave field.
+        </p>
+      </div>
+
+      <div class="max-w-5xl mx-auto relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl bg-neutral-950 aspect-[21/9] flex items-center justify-center group" id="interactive-box">
+        <canvas id="wave-canvas" class="w-full h-full absolute inset-0 cursor-crosshair"></canvas>
+        <div class="absolute bottom-4 left-6 pointer-events-none font-mono text-[11px] text-white/40 flex items-center gap-3">
+          <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+          <span>GPU RENDER: LIVE PARTICLES</span>
+        </div>
+        <div class="absolute bottom-4 right-6 pointer-events-none font-mono text-[11px] text-white/40">
+          <span>DRAG & HOVER TO DISTORT</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL / REPUTATION -->
+    <section class="py-32 px-6 md:px-14 relative bg-black/60 border-t border-white/10">
+      <div class="max-w-4xl mx-auto text-center">
+        <i data-lucide="quote" class="w-12 h-12 text-accent/60 mx-auto mb-8"></i>
+        <blockquote class="font-cinzel text-2xl sm:text-4xl text-white font-light leading-relaxed mb-8">
+          "AURA doesn't just build websites; they author mesmerizing digital realities that transform brands into timeless cultural icons."
+        </blockquote>
+        <div class="font-mono text-xs tracking-widest text-accent uppercase">Marcella Vance</div>
+        <div class="font-mono text-[11px] text-white/40 uppercase mt-1">Chief Creative Officer, Maison Royale Paris</div>
+      </div>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <section id="contact" class="py-32 px-6 md:px-14 relative overflow-hidden bg-gradient-to-b from-transparent to-black">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-12 gap-16 items-center">
+          <div class="lg:col-span-7">
+            <span class="font-mono text-xs text-accent tracking-widest uppercase block mb-3">// 04 INITIATE COLLABORATION</span>
+            <h2 class="font-syne text-5xl sm:text-7xl font-extrabold uppercase tracking-tight text-white mb-6">
+              Ready to create something <span class="italic font-cinzel text-accent font-light">legendary?</span>
+            </h2>
+            <p class="text-white/70 font-light text-lg mb-10 max-w-lg">
+              We accept a limited number of high-ambition commissions each quarter. Let's explore what we can craft together.
+            </p>
+            <a href="mailto:hello@aura-studio.design" class="inline-flex items-center gap-4 text-2xl sm:text-3xl font-syne font-bold text-white hover:text-accent transition-colors group" data-cursor="magnetic">
+              <span>hello@aura-studio.design</span>
+              <i data-lucide="arrow-up-right" class="w-8 h-8 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform"></i>
+            </a>
+          </div>
+
+          <div class="lg:col-span-5 bg-white/[0.03] border border-white/10 p-8 sm:p-10 rounded-3xl backdrop-blur-xl">
+            <h3 class="font-syne font-bold text-xl uppercase text-white mb-6">Quick Transmission</h3>
+            <form id="contact-form" class="space-y-4" onsubmit="event.preventDefault(); alert('Transmission Received! We will respond within 24 hours.');">
+              <div>
+                <label class="block font-mono text-[11px] text-white/50 uppercase tracking-wider mb-2">Name / Organization</label>
+                <input type="text" required placeholder="Elena Rostova" class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-accent transition-colors font-sans">
+              </div>
+              <div>
+                <label class="block font-mono text-[11px] text-white/50 uppercase tracking-wider mb-2">Email Address</label>
+                <input type="email" required placeholder="elena@domain.com" class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-accent transition-colors font-sans">
+              </div>
+              <div>
+                <label class="block font-mono text-[11px] text-white/50 uppercase tracking-wider mb-2">Project Vision & Budget</label>
+                <textarea rows="3" required placeholder="Tell us about the atmosphere, goals, and timeline..." class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-accent transition-colors font-sans resize-none"></textarea>
+              </div>
+              <button type="submit" class="w-full py-4 rounded-xl bg-accent text-noir font-syne font-extrabold uppercase tracking-wider text-xs hover:brightness-110 active:scale-[0.99] transition-all" data-cursor="hover">
+                Send Transmission
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="mt-28 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 font-mono text-xs text-white/40">
+          <div>© 2026 AURA STUDIO — All Rights Reserved.</div>
+          <div class="flex items-center gap-6">
+            <a href="#" class="hover:text-white transition-colors">Twitter (X)</a>
+            <a href="#" class="hover:text-white transition-colors">Instagram</a>
+            <a href="#" class="hover:text-white transition-colors">Awwwards</a>
+            <a href="#" class="hover:text-white transition-colors">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
