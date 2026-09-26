@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AURA — Digital Craft & Visual Artistry</title>
+  <title>AURA — Haute Digital Craft & Visual Artistry</title>
   
-  <!-- Google Fonts: Syne, Plus Jakarta Sans, Cinzel -->
+  <!-- Google Fonts: Cormorant Garamond, Syne, Cinzel, Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Cinzel:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN with configuration -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,12 +19,18 @@
         extend: {
           colors: {
             noir: '#070709',
-            surface: '#0e0e12',
-            accent: '#d4af37'
+            surface: '#0e0e13',
+            gold: {
+              300: '#f5e6b3',
+              400: '#e5ca78',
+              500: '#d4af37',
+              600: '#a3811f'
+            }
           },
           fontFamily: {
             syne: ['Syne', 'sans-serif'],
             cinzel: ['Cinzel', 'serif'],
+            serif: ['Cormorant Garamond', 'serif'],
             sans: ['Plus Jakarta Sans', 'sans-serif']
           }
         }
@@ -40,54 +46,57 @@
 
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-noir text-light selection:bg-accent selection:text-noir overflow-x-hidden antialiased">
+<body class="bg-noir text-[#e6e6ea] selection:bg-[#d4af37] selection:text-black overflow-x-hidden antialiased">
 
-  <!-- Custom Cursor -->
+  <!-- Custom Luxury Cursor -->
   <div class="custom-cursor pointer-events-none fixed top-0 left-0 z-50 rounded-full"></div>
-  <div class="cursor-follower pointer-events-none fixed top-0 left-0 z-50 rounded-full border border-white/30 transition-transform duration-100 ease-out">
-    <span class="cursor-text text-[10px] tracking-widest font-semibold uppercase text-white opacity-0"></span>
+  <div class="cursor-follower pointer-events-none fixed top-0 left-0 z-50 rounded-full border border-white/20 transition-transform duration-100 ease-out">
+    <span class="cursor-text font-serif italic text-xs tracking-widest uppercase text-gold-400 opacity-0"></span>
   </div>
 
   <!-- Ambient Sound / Visualizer Toggle -->
-  <button id="audio-toggle" class="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#121217] border border-white/10 text-xs font-mono tracking-widest uppercase text-white/70 hover:text-white hover:border-white/30 transition-colors group shadow-lg" aria-label="Toggle Sound Atmosphere">
+  <button id="audio-toggle" class="fixed bottom-6 right-6 z-40 flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#111116] border border-gold-500/20 text-[11px] font-mono tracking-widest uppercase text-white/80 hover:text-gold-400 hover:border-gold-500/50 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.6)] group" aria-label="Toggle Sound Atmosphere">
     <span class="sound-wave flex items-center gap-[3px] h-3">
-      <span class="bar h-full w-[2px] bg-accent/80 rounded-full"></span>
-      <span class="bar h-2/3 w-[2px] bg-accent/80 rounded-full"></span>
-      <span class="bar h-4/5 w-[2px] bg-accent/80 rounded-full"></span>
-      <span class="bar h-1/2 w-[2px] bg-accent/80 rounded-full"></span>
+      <span class="bar h-full w-[2px] bg-gold-500 rounded-full"></span>
+      <span class="bar h-2/3 w-[2px] bg-gold-500 rounded-full"></span>
+      <span class="bar h-4/5 w-[2px] bg-gold-500 rounded-full"></span>
+      <span class="bar h-1/2 w-[2px] bg-gold-500 rounded-full"></span>
     </span>
-    <span id="audio-label">SOUND [OFF]</span>
+    <span id="audio-label">ATMOSPHERE [OFF]</span>
   </button>
 
-  <!-- Static Ambient Glows (Zero GPU rasterization cost) -->
+  <!-- Ambient Golden Ray Backdrops -->
   <div class="ambient-glow fixed inset-0 pointer-events-none z-0"></div>
 
   <!-- Header / Navigation -->
   <header class="fixed top-0 left-0 w-full z-40 px-6 md:px-14 py-4 flex items-center justify-between bg-[#070709]/95 border-b border-white/5 transition-colors">
-    <a href="#" class="brand group flex items-center gap-2" data-cursor="hover">
-      <div class="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center relative overflow-hidden group-hover:border-accent transition-colors">
-        <span class="w-2.5 h-2.5 rounded-full bg-accent animate-ping absolute opacity-50"></span>
-        <span class="w-2 h-2 rounded-full bg-accent"></span>
+    <a href="#" class="brand group flex items-center gap-3" data-cursor="hover">
+      <div class="w-9 h-9 rounded-full border border-gold-500/30 flex items-center justify-center relative overflow-hidden group-hover:border-gold-400 transition-colors">
+        <span class="w-2.5 h-2.5 rounded-full bg-gold-500/30 animate-ping absolute"></span>
+        <span class="font-serif text-sm italic font-semibold text-gold-400">A</span>
       </div>
-      <span class="font-syne font-extrabold tracking-wider text-xl text-white">AURA<span class="text-accent">.</span></span>
+      <div class="flex flex-col">
+        <span class="font-cinzel tracking-[0.25em] text-sm font-bold text-white group-hover:text-gold-400 transition-colors">AURA</span>
+        <span class="font-mono text-[9px] uppercase tracking-widest text-white/40">Édition MMXXVI</span>
+      </div>
     </a>
 
     <!-- Nav Links -->
-    <nav class="hidden md:flex items-center gap-8 bg-[#121218] border border-white/10 px-8 py-2.5 rounded-full shadow-lg">
-      <a href="#about" class="nav-link text-xs uppercase tracking-widest font-mono text-white/60 hover:text-white transition-colors" data-cursor="hover">Philosophy</a>
-      <a href="#works" class="nav-link text-xs uppercase tracking-widest font-mono text-white/60 hover:text-white transition-colors" data-cursor="hover">Selected Works</a>
-      <a href="#services" class="nav-link text-xs uppercase tracking-widest font-mono text-white/60 hover:text-white transition-colors" data-cursor="hover">Capabilities</a>
-      <a href="#insights" class="nav-link text-xs uppercase tracking-widest font-mono text-white/60 hover:text-white transition-colors" data-cursor="hover">Journal</a>
+    <nav class="hidden md:flex items-center gap-8 bg-[#111116] border border-white/10 px-8 py-2 rounded-full shadow-lg">
+      <a href="#about" class="nav-link text-xs uppercase tracking-[0.2em] font-mono text-white/60 hover:text-gold-400 transition-colors" data-cursor="hover">I. Philosophy</a>
+      <a href="#works" class="nav-link text-xs uppercase tracking-[0.2em] font-mono text-white/60 hover:text-gold-400 transition-colors" data-cursor="hover">II. Artifacts</a>
+      <a href="#services" class="nav-link text-xs uppercase tracking-[0.2em] font-mono text-white/60 hover:text-gold-400 transition-colors" data-cursor="hover">III. Atelier</a>
+      <a href="#insights" class="nav-link text-xs uppercase tracking-[0.2em] font-mono text-white/60 hover:text-gold-400 transition-colors" data-cursor="hover">IV. Journal</a>
     </nav>
 
-    <!-- CTA & Time -->
-    <div class="flex items-center gap-4">
-      <div class="hidden lg:flex items-center gap-2 font-mono text-[11px] text-white/40 tracking-wider">
-        <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span id="current-time">12:00 UTC</span>
+    <!-- Atelier Presence & CTA -->
+    <div class="flex items-center gap-5">
+      <div class="hidden lg:flex items-center gap-2 font-mono text-[11px] text-gold-400/80 tracking-wider">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse"></span>
+        <span id="current-time">PARIS 14:00</span>
       </div>
-      <a href="#contact" class="magnetic-btn px-5 py-2.5 rounded-full bg-white text-black font-syne font-bold text-xs uppercase tracking-wider hover:bg-accent hover:text-black transition-colors shadow-md" data-cursor="magnetic">
-        Let's Talk
+      <a href="#contact" class="magnetic-btn px-6 py-2.5 rounded-full bg-gradient-to-r from-gold-400 to-gold-500 text-black font-cinzel font-semibold text-xs uppercase tracking-widest hover:brightness-110 transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)]" data-cursor="magnetic">
+        Initiate Dialogue
       </a>
     </div>
   </header>
@@ -96,163 +105,183 @@
   <main class="relative z-20">
 
     <!-- HERO SECTION -->
-    <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 md:px-14 pt-28 pb-12 overflow-hidden">
+    <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 md:px-14 pt-28 pb-16 overflow-hidden">
       
       <div class="max-w-7xl mx-auto w-full relative z-10">
+        
         <!-- Pre-title badge -->
-        <div class="hero-badge inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
-          <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
-          <span class="font-mono text-[11px] uppercase tracking-widest text-white/80">Digital Atelier & Visual Alchemy</span>
+        <div class="hero-badge inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-gold-500/5 border border-gold-500/20 mb-8">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold-400"></span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.25em] text-gold-400/90">Haute Digital Craft & Visual Artistry</span>
         </div>
 
         <!-- Hero Headline with Kinetic Stagger -->
-        <h1 class="hero-title font-syne font-extrabold text-5xl sm:text-7xl lg:text-9xl leading-[0.92] tracking-tight uppercase mb-8">
-          <div class="overflow-hidden"><span class="reveal-line inline-block">Crafting</span></div>
-          <div class="overflow-hidden">
-            <span class="reveal-line inline-block italic font-cinzel font-light text-gradient-gold">Hypnotic</span>
-            <span class="reveal-line inline-block">Dimensions</span>
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-8">
+            <h1 class="hero-title font-syne font-extrabold text-5xl sm:text-7xl lg:text-[6.8rem] leading-[0.94] tracking-tight uppercase mb-8">
+              <div class="overflow-hidden"><span class="reveal-line inline-block">Crafting</span></div>
+              <div class="overflow-hidden">
+                <span class="reveal-line inline-block italic font-serif font-light text-gradient-gold text-shimmer">Hypnotic</span>
+                <span class="reveal-line inline-block">Dimensions</span>
+              </div>
+              <div class="overflow-hidden">
+                <span class="reveal-line inline-block text-white/40">& Sensory</span>
+                <span class="reveal-line inline-block italic font-serif font-light text-gold-300">Realms.</span>
+              </div>
+            </h1>
           </div>
-          <div class="overflow-hidden"><span class="reveal-line inline-block text-white/40">& Sensations.</span></div>
-        </h1>
+
+          <!-- Celestial Armillary Ring Graphic (Pure CSS 3D Rotation) -->
+          <div class="lg:col-span-4 flex items-center justify-center">
+            <div class="celestial-orb relative w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center">
+              <div class="orbit-ring ring-1"></div>
+              <div class="orbit-ring ring-2"></div>
+              <div class="orbit-ring ring-3"></div>
+              <div class="w-16 h-16 rounded-full border border-gold-400/40 flex items-center justify-center backdrop-blur-sm bg-gold-500/5 shadow-[0_0_30px_rgba(212,175,55,0.25)]">
+                <span class="font-serif italic text-2xl text-gold-300">A</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Subheadline & Action Row -->
-        <div class="grid md:grid-cols-12 gap-8 items-end pt-6 border-t border-white/10">
-          <p class="hero-desc md:col-span-6 font-sans text-lg md:text-xl text-white/70 font-light leading-relaxed">
-            We blend avant-garde motion, procedural technology, and sensory storytelling to engineer digital spaces that capture hearts and shape cultural impact.
+        <div class="grid md:grid-cols-12 gap-8 items-end pt-8 border-t border-white/10 mt-6">
+          <p class="hero-desc md:col-span-6 font-sans text-base md:text-lg text-white/70 font-light leading-relaxed">
+            We architect singular sensory ecosystems for prestigious luxury houses, visionary institutions, and forward-thinking creators across the globe.
           </p>
 
           <div class="hero-actions md:col-span-6 flex flex-wrap items-center md:justify-end gap-5">
-            <a href="#works" class="group flex items-center gap-3 px-8 py-4 rounded-full bg-white/10 hover:bg-white border border-white/20 hover:border-white text-white hover:text-black font-syne font-bold text-sm tracking-wider uppercase transition-colors duration-200" data-cursor="hover">
-              <span>Explore Creations</span>
+            <a href="#works" class="group flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 hover:bg-gold-500 border border-gold-500/30 hover:border-gold-500 text-white hover:text-black font-cinzel font-semibold text-xs tracking-widest uppercase transition-all duration-300" data-cursor="hover">
+              <span>View Selected Works</span>
               <i data-lucide="arrow-down-right" class="w-4 h-4 transition-transform group-hover:rotate-45"></i>
             </a>
             <div class="flex items-center gap-3 pl-2">
-              <div class="flex -space-x-3">
-                <div class="w-9 h-9 rounded-full border-2 border-noir bg-neutral-800 flex items-center justify-center font-mono text-[10px] text-accent font-bold">01</div>
-                <div class="w-9 h-9 rounded-full border-2 border-noir bg-neutral-700 flex items-center justify-center font-mono text-[10px] text-white font-bold">02</div>
-                <div class="w-9 h-9 rounded-full border-2 border-noir bg-accent/80 flex items-center justify-center font-mono text-[10px] text-noir font-bold">03</div>
-              </div>
-              <span class="font-mono text-xs text-white/50">Award-winning 2026 Index</span>
+              <span class="font-mono text-xs text-gold-400/60 uppercase tracking-widest">Commission Index 2026</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Scroll Indicator -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity">
-        <span class="font-mono text-[10px] uppercase tracking-widest text-white/50">Scroll to Explore</span>
-        <div class="w-5 h-9 rounded-full border border-white/30 flex justify-center p-1.5">
-          <div class="w-1 h-2 bg-accent rounded-full animate-bounce"></div>
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity">
+        <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-gold-400/70">Scroll To Discover</span>
+        <div class="w-4 h-8 rounded-full border border-gold-400/30 flex justify-center p-1">
+          <div class="w-1 h-2 bg-gold-400 rounded-full animate-bounce"></div>
         </div>
       </div>
     </section>
 
     <!-- MARQUEE TICKER SECTION -->
-    <div class="marquee-wrapper relative overflow-hidden py-6 border-y border-white/10 bg-white/[0.02]">
-      <div class="marquee-track flex whitespace-nowrap gap-12 font-syne text-3xl md:text-5xl font-extrabold uppercase tracking-wider text-white/20 select-none">
-        <span>IMMERSIVE 3D</span>
-        <span class="text-accent">✦</span>
-        <span>KINETIC TYPOGRAPHY</span>
-        <span class="text-accent">✦</span>
-        <span>CREATIVE DIRECTION</span>
-        <span class="text-accent">✦</span>
-        <span>GENERATIVE AI</span>
-        <span class="text-accent">✦</span>
-        <span>SOUND ARCHITECTURE</span>
-        <span class="text-accent">✦</span>
-        <span>IMMERSIVE 3D</span>
-        <span class="text-accent">✦</span>
-        <span>KINETIC TYPOGRAPHY</span>
-        <span class="text-accent">✦</span>
-        <span>CREATIVE DIRECTION</span>
-        <span class="text-accent">✦</span>
-        <span>GENERATIVE AI</span>
-        <span class="text-accent">✦</span>
-        <span>SOUND ARCHITECTURE</span>
+    <div class="marquee-wrapper relative overflow-hidden py-5 border-y border-gold-500/10 bg-[#0a0a0e]">
+      <div class="marquee-track flex whitespace-nowrap gap-12 font-cinzel text-xl md:text-2xl font-light uppercase tracking-[0.25em] text-white/30 select-none">
+        <span>IMMERSIVE WEBGL</span>
+        <span class="text-gold-400">✦</span>
+        <span>HAUTE HORLOGERIE</span>
+        <span class="text-gold-400">✦</span>
+        <span>KINETIC ARCHITECTURE</span>
+        <span class="text-gold-400">✦</span>
+        <span>SENSORY STORYTELLING</span>
+        <span class="text-gold-400">✦</span>
+        <span>COMPUTATIONAL POETICS</span>
+        <span class="text-gold-400">✦</span>
+        <span>IMMERSIVE WEBGL</span>
+        <span class="text-gold-400">✦</span>
+        <span>HAUTE HORLOGERIE</span>
+        <span class="text-gold-400">✦</span>
+        <span>KINETIC ARCHITECTURE</span>
+        <span class="text-gold-400">✦</span>
+        <span>SENSORY STORYTELLING</span>
+        <span class="text-gold-400">✦</span>
+        <span>COMPUTATIONAL POETICS</span>
       </div>
     </div>
 
     <!-- PHILOSOPHY / ABOUT SECTION -->
-    <section id="about" class="py-28 px-6 md:px-14 relative">
+    <section id="about" class="py-32 px-6 md:px-14 relative">
       <div class="max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-12 gap-16 items-start">
           <div class="lg:col-span-5 sticky top-32">
-            <span class="font-mono text-xs text-accent tracking-widest uppercase block mb-3">// 01 PHILOSOPHY</span>
+            <span class="font-mono text-xs text-gold-400 tracking-[0.3em] uppercase block mb-3">// 01 PHILOSOPHY & ETHOS</span>
             <h2 class="font-syne text-4xl sm:text-5xl font-extrabold uppercase tracking-tight text-white mb-6">
-              Engineering the boundary between <span class="italic font-cinzel text-accent font-light">art</span> and <span class="text-white/40">computation</span>.
+              Where computational rigor meets <span class="italic font-serif font-light text-gradient-gold">pure poetic emotion</span>.
             </h2>
             <p class="text-white/70 leading-relaxed font-light mb-8">
-              We reject sterile web templates in favor of bespoke emotional ecosystems. Every particle, transition, and curve is sculpted to induce wonder and evoke visceral connection.
+              We reject transient templates in favor of timeless digital heirlooms. Each curve, kinetic transition, and light reflection is orchestrated to evoke wonder and elevate brand prestige.
             </p>
             <div class="grid grid-cols-2 gap-6 pt-6 border-t border-white/10">
               <div>
-                <h4 class="font-syne text-4xl font-extrabold text-white counter" data-target="99.8">0</h4>
-                <p class="font-mono text-xs text-white/50 mt-1 uppercase tracking-wider">% Aesthetic Purity</p>
+                <h4 class="font-cinzel text-4xl font-normal text-white counter" data-target="99.8">0</h4>
+                <p class="font-mono text-xs text-white/40 mt-1 uppercase tracking-widest">% Aesthetic Purity</p>
               </div>
               <div>
-                <h4 class="font-syne text-4xl font-extrabold text-accent counter" data-target="38">0</h4>
-                <p class="font-mono text-xs text-white/50 mt-1 uppercase tracking-wider">Awwwards & FWA Honors</p>
+                <h4 class="font-cinzel text-4xl font-normal text-gold-400 counter" data-target="38">0</h4>
+                <p class="font-mono text-xs text-white/40 mt-1 uppercase tracking-widest">International Accolades</p>
               </div>
             </div>
           </div>
 
-          <div id="services" class="lg:col-span-7 flex flex-col gap-8 scroll-mt-24">
-            <!-- Feature Card 1 -->
-            <div class="spotlight-card group p-8 md:p-10 rounded-2xl bg-[#0e0e13] border border-white/10 hover:border-accent/40 transition-colors duration-300 relative overflow-hidden" data-cursor="hover">
-              <div class="flex items-center justify-between mb-8">
-                <span class="font-mono text-xs text-white/40">// SPEC 01</span>
-                <i data-lucide="sparkles" class="w-6 h-6 text-accent group-hover:scale-125 transition-transform duration-300"></i>
+          <!-- Capabilities Column -->
+          <div id="services" class="lg:col-span-7 flex flex-col gap-6 scroll-mt-24">
+            
+            <!-- Spec Card 1 -->
+            <div class="spotlight-card group p-8 md:p-10 rounded-2xl bg-[#0c0c11] border border-white/10 hover:border-gold-500/40 transition-all duration-300 relative overflow-hidden" data-cursor="hover">
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs text-gold-400/60 uppercase tracking-widest">DISCIPLINE 01</span>
+                <i data-lucide="gem" class="w-5 h-5 text-gold-400 group-hover:scale-110 transition-transform duration-300"></i>
               </div>
-              <h3 class="font-syne text-2xl font-bold uppercase text-white mb-3">Hypnotic Fluidity</h3>
-              <p class="text-white/65 leading-relaxed font-light">
-                Physics-based micro-interactions and sub-millisecond motion response curves give the interface tactile weight, making every scroll, click, and drag feel alive.
+              <h3 class="font-syne text-2xl font-bold uppercase text-white mb-3 group-hover:text-gold-300 transition-colors">Tactile Micro-Physics</h3>
+              <p class="text-white/60 leading-relaxed font-light text-sm">
+                Inertia curves, organic spring resistances, and subtle gravity models that give digital interfaces the tactile weight of crafted mechanical luxury.
               </p>
             </div>
 
-            <!-- Feature Card 2 -->
-            <div class="spotlight-card group p-8 md:p-10 rounded-2xl bg-[#0e0e13] border border-white/10 hover:border-accent/40 transition-colors duration-300 relative overflow-hidden" data-cursor="hover">
-              <div class="flex items-center justify-between mb-8">
-                <span class="font-mono text-xs text-white/40">// SPEC 02</span>
-                <i data-lucide="layers" class="w-6 h-6 text-purple-400 group-hover:scale-125 transition-transform duration-300"></i>
+            <!-- Spec Card 2 -->
+            <div class="spotlight-card group p-8 md:p-10 rounded-2xl bg-[#0c0c11] border border-white/10 hover:border-gold-500/40 transition-all duration-300 relative overflow-hidden" data-cursor="hover">
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs text-gold-400/60 uppercase tracking-widest">DISCIPLINE 02</span>
+                <i data-lucide="compass" class="w-5 h-5 text-gold-400 group-hover:scale-110 transition-transform duration-300"></i>
               </div>
-              <h3 class="font-syne text-2xl font-bold uppercase text-white mb-3">Sculpted WebGL & Shaders</h3>
-              <p class="text-white/65 leading-relaxed font-light">
-                Custom GPU-accelerated fragment shaders and procedural geometries that run flawlessly at constant 60 to 120 FPS across modern displays.
+              <h3 class="font-syne text-2xl font-bold uppercase text-white mb-3 group-hover:text-gold-300 transition-colors">Bespoke 3D & Shaders</h3>
+              <p class="text-white/60 leading-relaxed font-light text-sm">
+                Procedural illumination, refractive glass physics, and ultra-smooth WebGL pipelines optimized to run at constant 144 FPS with zero GPU throttling.
               </p>
             </div>
 
-            <!-- Feature Card 3 -->
-            <div class="spotlight-card group p-8 md:p-10 rounded-2xl bg-[#0e0e13] border border-white/10 hover:border-accent/40 transition-colors duration-300 relative overflow-hidden" data-cursor="hover">
-              <div class="flex items-center justify-between mb-8">
-                <span class="font-mono text-xs text-white/40">// SPEC 03</span>
-                <i data-lucide="orbit" class="w-6 h-6 text-cyan-400 group-hover:scale-125 transition-transform duration-300"></i>
+            <!-- Spec Card 3 -->
+            <div class="spotlight-card group p-8 md:p-10 rounded-2xl bg-[#0c0c11] border border-white/10 hover:border-gold-500/40 transition-all duration-300 relative overflow-hidden" data-cursor="hover">
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs text-gold-400/60 uppercase tracking-widest">DISCIPLINE 03</span>
+                <i data-lucide="waveform" class="w-5 h-5 text-gold-400 group-hover:scale-110 transition-transform duration-300"></i>
               </div>
-              <h3 class="font-syne text-2xl font-bold uppercase text-white mb-3">Harmonic Spatial Sound</h3>
-              <p class="text-white/65 leading-relaxed font-light">
-                Subtle binaural audio cues and dynamic synth textures that respond organically to interaction states, providing a multi-sensory journey.
+              <h3 class="font-syne text-2xl font-bold uppercase text-white mb-3 group-hover:text-gold-300 transition-colors">Binaural Acoustic Architecture</h3>
+              <p class="text-white/60 leading-relaxed font-light text-sm">
+                Harmonic micro-soundscapes tailored to interface interaction, creating a synesthetic harmony between what is touched, seen, and heard.
               </p>
             </div>
+
           </div>
         </div>
       </div>
     </section>
 
     <!-- SELECTED WORKS / PORTFOLIO -->
-    <section id="works" class="py-28 px-6 md:px-14 relative bg-[#050507]">
+    <section id="works" class="py-32 px-6 md:px-14 relative bg-[#050507]">
       <div class="max-w-7xl mx-auto">
+        
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <span class="font-mono text-xs text-accent tracking-widest uppercase block mb-3">// 02 PORTFOLIO ARCHIVE</span>
+            <span class="font-mono text-xs text-gold-400 tracking-[0.3em] uppercase block mb-3">// 02 CURATED COMMISSIONS</span>
             <h2 class="font-syne text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-white">
-              Selected <span class="italic font-cinzel text-accent font-light">Artifacts</span>
+              Selected <span class="italic font-serif font-light text-gradient-gold">Artifacts</span>
             </h2>
           </div>
+          
           <!-- Filter Tags -->
           <div class="flex flex-wrap items-center gap-2">
-            <button class="filter-btn active px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-white/20 bg-white text-black" data-filter="all">All (04)</button>
+            <button class="filter-btn active px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-gold-500/40 bg-gold-500 text-black font-semibold" data-filter="all">All (04)</button>
             <button class="filter-btn px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-white/10 bg-white/5 text-white/60 hover:text-white" data-filter="webgl">3D / WebGL</button>
-            <button class="filter-btn px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-white/10 bg-white/5 text-white/60 hover:text-white" data-filter="luxury">Luxury Brand</button>
-            <button class="filter-btn px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-white/10 bg-white/5 text-white/60 hover:text-white" data-filter="fintech">Fintech</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-white/10 bg-white/5 text-white/60 hover:text-white" data-filter="luxury">Haute Horlogerie</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase border border-white/10 bg-white/5 text-white/60 hover:text-white" data-filter="fintech">Architecture</button>
           </div>
         </div>
 
@@ -260,173 +289,259 @@
         <div class="grid md:grid-cols-2 gap-10">
           
           <!-- Project 1 -->
-          <div class="project-card group relative rounded-3xl overflow-hidden bg-[#0e0e13] border border-white/10" data-category="webgl luxury" data-cursor="explore">
+          <div class="project-card group relative rounded-3xl overflow-hidden bg-[#0c0c11] border border-white/10" data-category="webgl luxury" data-cursor="explore">
             <div class="aspect-[16/10] overflow-hidden relative">
-              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-amber-600/30 via-violet-900/40 to-black z-0 transition-transform duration-500 group-hover:scale-105"></div>
+              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-amber-700/25 via-neutral-900 to-black z-0 transition-transform duration-500 group-hover:scale-105"></div>
               <div class="absolute inset-0 flex items-center justify-center p-8 z-10">
-                <div class="w-48 h-48 rounded-full border border-amber-300/40 flex items-center justify-center group-hover:rotate-90 transition-transform duration-700 ease-out">
-                  <div class="w-32 h-32 rounded-2xl border border-white/30 rotate-45 group-hover:-rotate-45 transition-transform duration-700 ease-out"></div>
+                <div class="w-48 h-48 rounded-full border border-gold-400/40 flex items-center justify-center group-hover:rotate-90 transition-transform duration-700 ease-out">
+                  <div class="w-32 h-32 rounded-2xl border border-white/20 rotate-45 group-hover:-rotate-45 transition-transform duration-700 ease-out"></div>
                 </div>
               </div>
-              <div class="absolute top-6 left-6 z-20">
-                <span class="px-3 py-1 rounded-full bg-black/80 border border-white/20 font-mono text-[10px] uppercase tracking-widest text-white/80">3D Interactive</span>
+              <div class="absolute top-6 left-6 z-20 flex items-center gap-2">
+                <span class="px-3 py-1 rounded-full bg-black/80 border border-gold-500/30 font-mono text-[10px] uppercase tracking-widest text-gold-400">N° 01 // HOROLOGY</span>
               </div>
-              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl">
+              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-gold-400 text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl">
                 <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
               </div>
             </div>
             <div class="p-8">
               <div class="flex items-center justify-between text-xs font-mono text-white/40 mb-2">
-                <span>CHRONO / HOROLOGY</span>
-                <span>2026</span>
+                <span>AETHELGARD GENÈVE</span>
+                <span>SWITZERLAND • 2026</span>
               </div>
-              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-accent transition-colors">Aethelgard High Horology</h3>
-              <p class="text-white/60 text-sm font-light mt-2">Interactive 3D tour of Swiss skeleton tourbillons with micro-physics simulation.</p>
+              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-gold-400 transition-colors">Skeleton Tourbillon Atelier</h3>
+              <p class="text-white/60 text-sm font-light mt-2">Bespoke 3D simulation of mechanical escapements with micro-gear acoustics.</p>
             </div>
           </div>
 
           <!-- Project 2 -->
-          <div class="project-card group relative rounded-3xl overflow-hidden bg-[#0e0e13] border border-white/10" data-category="webgl fintech" data-cursor="explore">
+          <div class="project-card group relative rounded-3xl overflow-hidden bg-[#0c0c11] border border-white/10" data-category="webgl fintech" data-cursor="explore">
             <div class="aspect-[16/10] overflow-hidden relative">
-              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-cyan-600/30 via-blue-900/40 to-black z-0 transition-transform duration-500 group-hover:scale-105"></div>
+              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-cyan-900/30 via-neutral-900 to-black z-0 transition-transform duration-500 group-hover:scale-105"></div>
               <div class="absolute inset-0 flex items-center justify-center p-8 z-10">
-                <div class="w-44 h-44 rounded-full border border-cyan-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-700 ease-out">
-                  <div class="w-24 h-24 rounded-full border border-white/40 animate-pulse"></div>
+                <div class="w-44 h-44 rounded-full border border-cyan-400/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-700 ease-out">
+                  <div class="w-24 h-24 rounded-full border border-white/30 animate-pulse"></div>
                 </div>
               </div>
               <div class="absolute top-6 left-6 z-20">
-                <span class="px-3 py-1 rounded-full bg-black/80 border border-white/20 font-mono text-[10px] uppercase tracking-widest text-white/80">Fintech Protocol</span>
+                <span class="px-3 py-1 rounded-full bg-black/80 border border-white/20 font-mono text-[10px] uppercase tracking-widest text-cyan-300">N° 02 // QUANTUM</span>
               </div>
-              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl">
+              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-gold-400 text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl">
                 <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
               </div>
             </div>
             <div class="p-8">
               <div class="flex items-center justify-between text-xs font-mono text-white/40 mb-2">
-                <span>QUANTUM / PROTOCOL</span>
-                <span>2026</span>
+                <span>NEXUS QUANTUM PROTOCOL</span>
+                <span>ZURICH • 2026</span>
               </div>
-              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-accent transition-colors">Nexus Liquidity Engine</h3>
-              <p class="text-white/60 text-sm font-light mt-2">Real-time dynamic data visualization handling \$4.2B in algorithmic settlement.</p>
+              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-gold-400 transition-colors">Algorithmic Settlement Canopy</h3>
+              <p class="text-white/60 text-sm font-light mt-2">Harmonic particle flow dynamics for high-frequency liquidity architectures.</p>
             </div>
           </div>
 
           <!-- Project 3 -->
-          <div class="project-card group relative rounded-3xl overflow-hidden bg-[#0e0e13] border border-white/10" data-category="luxury" data-cursor="explore">
+          <div class="project-card group relative rounded-3xl overflow-hidden bg-[#0c0c11] border border-white/10" data-category="luxury" data-cursor="explore">
             <div class="aspect-[16/10] overflow-hidden relative">
-              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-rose-600/30 via-purple-900/40 to-black z-0 transition-transform duration-500 group-hover:scale-105"></div>
+              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-rose-900/30 via-neutral-900 to-black z-0 transition-transform duration-500 group-hover:scale-105"></div>
               <div class="absolute inset-0 flex items-center justify-center p-8 z-10">
-                <div class="w-40 h-40 border-2 border-rose-400/40 rotate-12 group-hover:rotate-90 transition-transform duration-700 ease-out"></div>
+                <div class="w-40 h-40 border border-rose-300/30 rotate-12 group-hover:rotate-90 transition-transform duration-700 ease-out"></div>
               </div>
               <div class="absolute top-6 left-6 z-20">
-                <span class="px-3 py-1 rounded-full bg-black/80 border border-white/20 font-mono text-[10px] uppercase tracking-widest text-white/80">Haute Parfumerie</span>
+                <span class="px-3 py-1 rounded-full bg-black/80 border border-white/20 font-mono text-[10px] uppercase tracking-widest text-rose-300">N° 03 // PARFUMERIE</span>
               </div>
-              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl">
+              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-gold-400 text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl">
                 <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
               </div>
             </div>
             <div class="p-8">
               <div class="flex items-center justify-between text-xs font-mono text-white/40 mb-2">
-                <span>OLFACTIVE / ATELIER</span>
-                <span>2025</span>
+                <span>MAISON DE NOCTURNE</span>
+                <span>PARIS • 2025</span>
               </div>
-              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-accent transition-colors">Maison De Nocturne</h3>
-              <p class="text-white/60 text-sm font-light mt-2">Sensory digital fragrance pairing with synesthetic visual feedback.</p>
+              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-gold-400 transition-colors">Olfactive Synesthesia</h3>
+              <p class="text-white/60 text-sm font-light mt-2">Sensory fragrance pairing accompanied by generative pigment fluid mechanics.</p>
             </div>
           </div>
 
           <!-- Project 4 -->
-          <div class="project-card group relative rounded-3xl overflow-hidden bg-[#0e0e13] border border-white/10" data-category="webgl fintech" data-cursor="explore">
+          <div class="project-card group relative rounded-3xl overflow-hidden bg-[#0c0c11] border border-white/10" data-category="webgl fintech" data-cursor="explore">
             <div class="aspect-[16/10] overflow-hidden relative">
-              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-emerald-600/30 via-teal-950/50 to-black z-0 transition-transform duration-500 group-hover:scale-105"></div>
+              <div class="project-bg-gradient absolute inset-0 bg-gradient-to-tr from-emerald-900/30 via-neutral-900 to-black z-0 transition-transform duration-500 group-hover:scale-105"></div>
               <div class="absolute inset-0 flex items-center justify-center p-8 z-10">
-                <div class="w-44 h-44 rounded-full border border-emerald-400/40 flex items-center justify-center group-hover:scale-95 transition-transform duration-700 ease-out">
-                  <div class="w-20 h-20 rounded-full border border-dashed border-emerald-300 animate-spin" style="animation-duration: 12s;"></div>
+                <div class="w-44 h-44 rounded-full border border-emerald-400/30 flex items-center justify-center group-hover:scale-95 transition-transform duration-700 ease-out">
+                  <div class="w-20 h-20 rounded-full border border-dashed border-emerald-300/40 animate-spin" style="animation-duration: 16s;"></div>
                 </div>
               </div>
               <div class="absolute top-6 left-6 z-20">
-                <span class="px-3 py-1 rounded-full bg-black/80 border border-white/20 font-mono text-[10px] uppercase tracking-widest text-white/80">Spatial Architecture</span>
+                <span class="px-3 py-1 rounded-full bg-black/80 border border-white/20 font-mono text-[10px] uppercase tracking-widest text-emerald-300">N° 04 // SPATIAL</span>
               </div>
-              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl">
+              <div class="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-gold-400 text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl">
                 <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
               </div>
             </div>
             <div class="p-8">
               <div class="flex items-center justify-between text-xs font-mono text-white/40 mb-2">
-                <span>SPATIAL / ARCH</span>
-                <span>2025</span>
+                <span>VANDERBILT ARCHITECTURE</span>
+                <span>NEW YORK • 2025</span>
               </div>
-              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-accent transition-colors">Vanderbilt Glass Pavilion</h3>
-              <p class="text-white/60 text-sm font-light mt-2">BIM-integrated interactive solar path and generative acoustic simulation.</p>
+              <h3 class="font-syne text-2xl font-bold text-white group-hover:text-gold-400 transition-colors">Solar Pavilion Kinetic Façade</h3>
+              <p class="text-white/60 text-sm font-light mt-2">BIM-connected generative solar angle reflections and acoustic attenuation.</p>
             </div>
           </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CURATED MONOLOGUES / JOURNAL SECTION -->
+    <section id="insights" class="py-32 px-6 md:px-14 relative bg-[#07070a] border-t border-white/10 scroll-mt-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+          <div>
+            <span class="font-mono text-xs text-gold-400 tracking-[0.3em] uppercase block mb-3">// 03 THE JOURNAL & MONOLOGUES</span>
+            <h2 class="font-syne text-4xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+              Thoughts on <span class="italic font-serif font-light text-gradient-gold">Digital Permanence</span>
+            </h2>
+          </div>
+          <span class="font-mono text-xs text-white/40 tracking-widest">EDITIONS 2026</span>
+        </div>
+
+        <div class="divide-y divide-white/10 border-y border-white/10">
+          
+          <!-- Journal Row 1 -->
+          <article class="group py-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-white/[0.01] transition-colors cursor-pointer" data-cursor="hover">
+            <div class="flex items-baseline gap-6">
+              <span class="font-mono text-xs text-gold-400/70 font-semibold tracking-wider">ISSUE 01</span>
+              <div>
+                <h3 class="font-serif text-2xl md:text-3xl text-white group-hover:text-gold-300 transition-colors">The Poetics of Negative Mass in Kinetic Interfaces</h3>
+                <p class="text-white/50 text-sm font-light mt-1">Why empty space and sub-millisecond inertia evoke luxury more than ornamentation.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-6 text-xs font-mono text-white/40">
+              <span>06 MIN READ</span>
+              <i data-lucide="arrow-up-right" class="w-5 h-5 text-gold-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+            </div>
+          </article>
+
+          <!-- Journal Row 2 -->
+          <article class="group py-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-white/[0.01] transition-colors cursor-pointer" data-cursor="hover">
+            <div class="flex items-baseline gap-6">
+              <span class="font-mono text-xs text-gold-400/70 font-semibold tracking-wider">ISSUE 02</span>
+              <div>
+                <h3 class="font-serif text-2xl md:text-3xl text-white group-hover:text-gold-300 transition-colors">Synesthesia: Scoring Auditory Texture for WebGL</h3>
+                <p class="text-white/50 text-sm font-light mt-1">Sculpting procedural binaural harmonics to turn user navigation into an intimate ritual.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-6 text-xs font-mono text-white/40">
+              <span>04 MIN READ</span>
+              <i data-lucide="arrow-up-right" class="w-5 h-5 text-gold-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+            </div>
+          </article>
+
+          <!-- Journal Row 3 -->
+          <article class="group py-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-white/[0.01] transition-colors cursor-pointer" data-cursor="hover">
+            <div class="flex items-baseline gap-6">
+              <span class="font-mono text-xs text-gold-400/70 font-semibold tracking-wider">ISSUE 03</span>
+              <div>
+                <h3 class="font-serif text-2xl md:text-3xl text-white group-hover:text-gold-300 transition-colors">Haute Horlogerie in the Browser: The Math of Constant Force</h3>
+                <p class="text-white/50 text-sm font-light mt-1">Simulating Breguet overcoil hairspring dynamics with GPU fragment computation.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-6 text-xs font-mono text-white/40">
+              <span>08 MIN READ</span>
+              <i data-lucide="arrow-up-right" class="w-5 h-5 text-gold-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+            </div>
+          </article>
 
         </div>
       </div>
     </section>
 
     <!-- TESTIMONIAL / REPUTATION -->
-    <section id="insights" class="py-28 px-6 md:px-14 relative bg-black/40 border-t border-white/10 scroll-mt-20">
+    <section class="py-32 px-6 md:px-14 relative bg-[#050508] border-t border-white/10">
       <div class="max-w-4xl mx-auto text-center">
-        <i data-lucide="quote" class="w-12 h-12 text-accent/60 mx-auto mb-8"></i>
-        <blockquote class="font-cinzel text-2xl sm:text-4xl text-white font-light leading-relaxed mb-8">
-          "AURA doesn't just build websites; they author mesmerizing digital realities that transform brands into timeless cultural icons."
+        <i data-lucide="quote" class="w-10 h-10 text-gold-400/70 mx-auto mb-8"></i>
+        <blockquote class="font-serif italic text-2xl sm:text-4xl text-white font-light leading-relaxed mb-8">
+          "AURA does not simply construct interfaces; they author mesmerizing digital realities that transform brands into timeless cultural icons."
         </blockquote>
-        <div class="font-mono text-xs tracking-widest text-accent uppercase">Marcella Vance</div>
+        <div class="font-cinzel text-xs tracking-[0.25em] text-gold-400 uppercase font-semibold">Marcella Vance</div>
         <div class="font-mono text-[11px] text-white/40 uppercase mt-1">Chief Creative Officer, Maison Royale Paris</div>
       </div>
     </section>
 
     <!-- CONTACT / FOOTER -->
-    <section id="contact" class="py-28 px-6 md:px-14 relative overflow-hidden bg-gradient-to-b from-transparent to-black">
+    <section id="contact" class="py-32 px-6 md:px-14 relative overflow-hidden bg-gradient-to-b from-transparent to-black border-t border-white/10">
       <div class="max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-12 gap-16 items-center">
+          
           <div class="lg:col-span-7">
-            <span class="font-mono text-xs text-accent tracking-widest uppercase block mb-3">// 03 INITIATE COLLABORATION</span>
+            <span class="font-mono text-xs text-gold-400 tracking-[0.3em] uppercase block mb-3">// 04 PRIVATE COMMISSION</span>
             <h2 class="font-syne text-5xl sm:text-7xl font-extrabold uppercase tracking-tight text-white mb-6">
-              Ready to create something <span class="italic font-cinzel text-accent font-light">legendary?</span>
+              Initiate a <span class="italic font-serif font-light text-gradient-gold">Masterpiece.</span>
             </h2>
-            <p class="text-white/70 font-light text-lg mb-10 max-w-lg">
-              We accept a limited number of high-ambition commissions each quarter. Let's explore what we can craft together.
+            <p class="text-white/70 font-light text-lg mb-10 max-w-lg leading-relaxed">
+              We accept a limited number of high-ambition commissions each quarter. Let us craft an indelible digital signature together.
             </p>
-            <a href="mailto:hello@aura-studio.design" class="inline-flex items-center gap-4 text-2xl sm:text-3xl font-syne font-bold text-white hover:text-accent transition-colors group" data-cursor="magnetic">
-              <span>hello@aura-studio.design</span>
-              <i data-lucide="arrow-up-right" class="w-8 h-8 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform"></i>
+            <a href="mailto:atelier@aura-studio.design" class="inline-flex items-center gap-4 text-2xl sm:text-3xl font-serif italic text-white hover:text-gold-400 transition-colors group" data-cursor="magnetic">
+              <span>atelier@aura-studio.design</span>
+              <i data-lucide="arrow-up-right" class="w-8 h-8 text-gold-400 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform"></i>
             </a>
           </div>
 
-          <div class="lg:col-span-5 bg-[#0f0f15] border border-white/10 p-8 sm:p-10 rounded-3xl shadow-2xl">
-            <h3 class="font-syne font-bold text-xl uppercase text-white mb-6">Quick Transmission</h3>
-            <form id="contact-form" class="space-y-4" onsubmit="event.preventDefault(); alert('Transmission Received! We will respond within 24 hours.');">
+          <div class="lg:col-span-5 bg-[#0d0d12] border border-gold-500/20 p-8 sm:p-10 rounded-3xl shadow-[0_10px_50px_rgba(0,0,0,0.8)]">
+            <h3 class="font-cinzel font-semibold text-lg tracking-widest uppercase text-white mb-6">Commission Dispatch</h3>
+            <form id="contact-form" class="space-y-5" onsubmit="event.preventDefault(); alert('Transmission Received. The atelier will review your brief within 24 hours.');">
               <div>
-                <label class="block font-mono text-[11px] text-white/50 uppercase tracking-wider mb-2">Name / Organization</label>
-                <input type="text" required placeholder="Elena Rostova" class="w-full bg-[#16161f] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-accent transition-colors font-sans">
+                <label class="block font-mono text-[11px] text-gold-400/70 uppercase tracking-wider mb-2">Entity / Client</label>
+                <input type="text" required placeholder="Maison or Executive Name" class="w-full bg-[#13131a] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400 transition-colors font-sans">
               </div>
               <div>
-                <label class="block font-mono text-[11px] text-white/50 uppercase tracking-wider mb-2">Email Address</label>
-                <input type="email" required placeholder="elena@domain.com" class="w-full bg-[#16161f] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-accent transition-colors font-sans">
+                <label class="block font-mono text-[11px] text-gold-400/70 uppercase tracking-wider mb-2">Secure Correspondence</label>
+                <input type="email" required placeholder="client@maison.com" class="w-full bg-[#13131a] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400 transition-colors font-sans">
               </div>
               <div>
-                <label class="block font-mono text-[11px] text-white/50 uppercase tracking-wider mb-2">Project Vision & Budget</label>
-                <textarea rows="3" required placeholder="Tell us about the atmosphere, goals, and timeline..." class="w-full bg-[#16161f] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-accent transition-colors font-sans resize-none"></textarea>
+                <label class="block font-mono text-[11px] text-gold-400/70 uppercase tracking-wider mb-2">Commission Scope & Atmosphere</label>
+                <textarea rows="3" required placeholder="Describe the ambition, timeline, and aesthetic parameters..." class="w-full bg-[#13131a] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-400 transition-colors font-sans resize-none"></textarea>
               </div>
-              <button type="submit" class="w-full py-4 rounded-xl bg-accent text-noir font-syne font-extrabold uppercase tracking-wider text-xs hover:brightness-110 active:scale-[0.99] transition-all" data-cursor="hover">
+              <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold-400 to-gold-500 text-black font-cinzel font-bold tracking-widest uppercase text-xs hover:brightness-110 active:scale-[0.99] transition-all" data-cursor="hover">
                 Send Transmission
               </button>
             </form>
           </div>
         </div>
 
-        <!-- Footer Bottom Bar -->
-        <div class="mt-28 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 font-mono text-xs text-white/40">
-          <div>© 2026 AURA STUDIO — All Rights Reserved.</div>
-          <div class="flex items-center gap-6">
-            <a href="#" class="hover:text-white transition-colors">Twitter (X)</a>
-            <a href="#" class="hover:text-white transition-colors">Instagram</a>
-            <a href="#" class="hover:text-white transition-colors">Awwwards</a>
-            <a href="#" class="hover:text-white transition-colors">GitHub</a>
+        <!-- Global Atelier Clocks -->
+        <div class="mt-24 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 font-mono text-xs text-white/50">
+          <div>
+            <span class="block text-[10px] text-gold-400/70 uppercase tracking-widest">ATELIER PARIS</span>
+            <span id="clock-paris" class="text-white text-sm font-semibold">--:--:-- CET</span>
+          </div>
+          <div>
+            <span class="block text-[10px] text-gold-400/70 uppercase tracking-widest">ATELIER NEW YORK</span>
+            <span id="clock-ny" class="text-white text-sm font-semibold">--:--:-- EST</span>
+          </div>
+          <div>
+            <span class="block text-[10px] text-gold-400/70 uppercase tracking-widest">ATELIER TOKYO</span>
+            <span id="clock-tokyo" class="text-white text-sm font-semibold">--:--:-- JST</span>
+          </div>
+          <div>
+            <span class="block text-[10px] text-gold-400/70 uppercase tracking-widest">CURATION STATUS</span>
+            <span class="text-emerald-400 text-sm font-semibold">OPEN FOR Q3/Q4</span>
           </div>
         </div>
+
+        <!-- Bottom Bar -->
+        <div class="mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6 font-mono text-xs text-white/40">
+          <div>© MMXXVI AURA ATELIER — ALL RIGHTS RESERVED.</div>
+          <div class="flex items-center gap-8">
+            <a href="#" class="hover:text-gold-400 transition-colors">Archive</a>
+            <a href="#" class="hover:text-gold-400 transition-colors">Manifesto</a>
+            <a href="#" class="hover:text-gold-400 transition-colors">Instagram</a>
+            <a href="#" class="hover:text-gold-400 transition-colors">Awwwards</a>
+          </div>
+        </div>
+
       </div>
     </section>
 

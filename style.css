@@ -1,14 +1,16 @@
 /* ==========================================================================
-   AURA — ULTRA-FAST 144FPS LUXURY STYLESHEET
-   Zero layout shifts • Zero GPU memory bloat • Zero virtual scroll lag
+   AURA — HAUTE DIGITAL CRAFT & LUXURY AESTHETIC STYLESHEET
+   Refined Typography • Liquid Gold Shimmer • 144Hz Zero-Lag Architecture
    ========================================================================== */
 
 :root {
   --color-noir: #070709;
-  --color-surface: #0e0e13;
-  --color-accent: #d4af37;
+  --color-surface: #0c0c11;
+  --color-gold: #d4af37;
+  --color-gold-light: #f5e6b3;
   --font-syne: 'Syne', sans-serif;
   --font-cinzel: 'Cinzel', serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', sans-serif;
 }
 
@@ -22,7 +24,7 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--color-noir);
-  color: #f3f3f5;
+  color: #e6e6ea;
   font-family: var(--font-sans);
 }
 
@@ -34,45 +36,106 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar */
+/* Luxury Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: #070709;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(212, 175, 55, 0.25);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent);
+  background: var(--color-gold);
 }
 
-/* Typography & Colors */
+/* Typography Helpers */
 .font-syne { font-family: var(--font-syne); }
 .font-cinzel { font-family: var(--font-cinzel); }
+.font-serif { font-family: var(--font-serif); }
 .font-sans { font-family: var(--font-sans); }
 
 .bg-noir { background-color: var(--color-noir); }
-.text-accent { color: var(--color-accent); }
-.bg-accent { background-color: var(--color-accent); }
+.text-gold { color: var(--color-gold); }
 
+/* Liquid Gold Gradient & Shimmer */
 .text-gradient-gold {
-  background: linear-gradient(135deg, #fff 15%, #f6e05e 50%, #b7791f 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #f7e7b4 30%, #d4af37 60%, #aa820a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Hardware-accelerated CSS Ambient Glows (0% GPU blur cost) */
+.text-shimmer {
+  background-size: 200% auto;
+  animation: shine-gold 8s linear infinite;
+}
+
+@keyframes shine-gold {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Ambient Ray Backdrops (Pure CSS, 0% GPU Blur Load) */
 .ambient-glow {
   background: 
-    radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 60%, rgba(139, 92, 246, 0.06) 0%, transparent 40%);
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.07) 0%, transparent 60%),
+    radial-gradient(circle at 85% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 45%),
+    radial-gradient(circle at 15% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
   pointer-events: none;
 }
 
-/* GPU-Accelerated Cursor */
+/* 3D Celestial Armillary Rings in Hero */
+.celestial-orb {
+  perspective: 800px;
+}
+
+.orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  pointer-events: none;
+}
+
+.orbit-ring.ring-1 {
+  width: 100%;
+  height: 100%;
+  border-top-color: rgba(212, 175, 55, 0.8);
+  animation: spin-orbit-1 18s linear infinite;
+}
+
+.orbit-ring.ring-2 {
+  width: 78%;
+  height: 78%;
+  border-left-color: rgba(245, 230, 179, 0.8);
+  animation: spin-orbit-2 14s linear infinite reverse;
+}
+
+.orbit-ring.ring-3 {
+  width: 56%;
+  height: 56%;
+  border-right-color: rgba(212, 175, 55, 0.6);
+  animation: spin-orbit-3 22s linear infinite;
+}
+
+@keyframes spin-orbit-1 {
+  0% { transform: rotate3d(1, 1, 0, 0deg); }
+  100% { transform: rotate3d(1, 1, 0, 360deg); }
+}
+
+@keyframes spin-orbit-2 {
+  0% { transform: rotate3d(0, 1, 1, 0deg); }
+  100% { transform: rotate3d(0, 1, 1, 360deg); }
+}
+
+@keyframes spin-orbit-3 {
+  0% { transform: rotate3d(1, 0, 1, 0deg); }
+  100% { transform: rotate3d(1, 0, 1, 360deg); }
+}
+
+/* GPU-Accelerated Minimalist Luxury Cursor */
 @media (hover: none) or (pointer: coarse) {
   .custom-cursor,
   .cursor-follower {
@@ -81,9 +144,9 @@ body {
 }
 
 .custom-cursor {
-  width: 8px;
-  height: 8px;
-  background: #ffffff;
+  width: 6px;
+  height: 6px;
+  background: #d4af37;
   position: fixed;
   top: 0;
   left: 0;
@@ -94,8 +157,8 @@ body {
 }
 
 .cursor-follower {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   position: fixed;
   top: 0;
   left: 0;
@@ -105,27 +168,27 @@ body {
   justify-content: center;
   z-index: 9998;
   pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: rgba(212, 175, 55, 0.02);
   will-change: transform;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .cursor-follower.hovering {
   border-color: rgba(212, 175, 55, 0.9);
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(212, 175, 55, 0.08);
 }
 
 .cursor-follower.explore {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--color-gold);
+  border-color: var(--color-gold);
 }
 .cursor-follower.explore .cursor-text {
   opacity: 1;
   color: #070709;
 }
 
-/* Sound Wave Ticker */
+/* Equalizer Ticker */
 .sound-wave .bar {
   animation: equalize 1s infinite alternate ease-in-out;
 }
@@ -144,12 +207,12 @@ body {
   100% { height: 14px; }
 }
 
-/* GPU-composited Marquee (Transform only) */
+/* Marquee Track */
 .marquee-track {
   display: flex;
   width: max-content;
   will-change: transform;
-  animation: marquee-scroll 28s linear infinite;
+  animation: marquee-scroll 32s linear infinite;
 }
 
 .marquee-wrapper:hover .marquee-track {
@@ -161,15 +224,15 @@ body {
   100% { transform: translate3d(-50%, 0, 0); }
 }
 
-/* Feature & Project Cards - Fast CSS Transitions */
+/* Interactive Cards with Smooth Elevate */
 .spotlight-card {
   transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
   will-change: transform;
 }
 .spotlight-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(212, 175, 55, 0.35);
-  background: #121219;
+  border-color: rgba(212, 175, 55, 0.4);
+  background: #111118;
 }
 
 .project-card {
@@ -178,10 +241,10 @@ body {
 }
 .project-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(212, 175, 55, 0.3);
+  border-color: rgba(212, 175, 55, 0.35);
 }
 
-/* Nav Link Hover Underline */
+/* Nav Link Underline */
 .nav-link {
   position: relative;
 }
@@ -192,7 +255,7 @@ body {
   height: 1px;
   bottom: -4px;
   left: 0;
-  background-color: var(--color-accent);
+  background-color: var(--color-gold);
   transition: width 0.2s ease;
 }
 .nav-link:hover::after {

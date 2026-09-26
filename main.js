@@ -1,6 +1,6 @@
 /**
- * AURA — High-Velocity Engine
- * 100% Pure Native Scroll • 0ms Delay • GPU Accelerated
+ * AURA — Haute Digital Craft & Kinetic Engine
+ * 100% Zero-Lag 144Hz Architecture • Synesthetic Sound • World Clocks
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const link = e.target.closest('a[href^="#"]');
     if (!link) return;
 
-    e.preventDefault(); // Completely prevents hash from appearing in browser URL!
+    e.preventDefault(); // Never modify the browser's URL address bar!
 
     const targetId = link.getAttribute('href');
 
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
-      const headerOffset = 80; // Account for fixed header height
+      const headerOffset = 85; // Fixed header spacing
       const elementPosition = targetElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -42,19 +42,45 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     2. DYNAMIC REAL-TIME CLOCK (LIGHTWEIGHT TICKER)
+     2. GLOBAL ATELIER TIMEZONES (PARIS • NEW YORK • TOKYO)
      ========================================================================== */
-  const timeEl = document.getElementById('current-time');
-  function updateTime() {
-    if (!timeEl) return;
+  const timeHeader = document.getElementById('current-time');
+  const clockParis = document.getElementById('clock-paris');
+  const clockNY = document.getElementById('clock-ny');
+  const clockTokyo = document.getElementById('clock-tokyo');
+
+  function updateAtelierClocks() {
     const now = new Date();
-    timeEl.textContent = now.toTimeString().split(' ')[0] + ' UTC';
+
+    const formatTz = (tz, label) => {
+      try {
+        const timeStr = now.toLocaleTimeString('en-GB', {
+          timeZone: tz,
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        });
+        return `${timeStr} ${label}`;
+      } catch (err) {
+        return now.toTimeString().split(' ')[0];
+      }
+    };
+
+    const parisTime = formatTz('Europe/Paris', 'CET');
+    const nyTime = formatTz('America/New_York', 'EST');
+    const tokyoTime = formatTz('Asia/Tokyo', 'JST');
+
+    if (timeHeader) timeHeader.textContent = `PARIS ${parisTime.substring(0, 5)}`;
+    if (clockParis) clockParis.textContent = parisTime;
+    if (clockNY) clockNY.textContent = nyTime;
+    if (clockTokyo) clockTokyo.textContent = tokyoTime;
   }
-  updateTime();
-  setInterval(updateTime, 1000);
+  updateAtelierClocks();
+  setInterval(updateAtelierClocks, 1000);
 
   /* ==========================================================================
-     2. FAST GPU-ACCELERATED CURSOR
+     3. FAST GPU-ACCELERATED CURSOR
      ========================================================================== */
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const cursor = document.querySelector('.custom-cursor');
@@ -72,17 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      // Direct instant dot positioning
-      cursor.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`;
+      cursor.style.transform = `translate3d(${mouseX - 3}px, ${mouseY - 3}px, 0)`;
     }, { passive: true });
 
     function renderFollower() {
-      // Snappy lerp (0.25 for quick follow without lagging behind)
       followerX += (mouseX - followerX) * 0.25;
       followerY += (mouseY - followerY) * 0.25;
       currentScale += (targetScale - currentScale) * 0.25;
 
-      follower.style.transform = `translate3d(${followerX - 20}px, ${followerY - 20}px, 0) scale(${currentScale})`;
+      follower.style.transform = `translate3d(${followerX - 19}px, ${followerY - 19}px, 0) scale(${currentScale})`;
       requestAnimationFrame(renderFollower);
     }
     requestAnimationFrame(renderFollower);
@@ -105,8 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
     exploreElements.forEach((el) => {
       el.addEventListener('mouseenter', () => {
         follower.classList.add('explore');
-        targetScale = 1.8;
-        if (cursorText) cursorText.textContent = 'EXPLORE';
+        targetScale = 1.9;
+        if (cursorText) cursorText.textContent = 'DISCOVER';
       });
       el.addEventListener('mouseleave', () => {
         follower.classList.remove('explore');
@@ -136,13 +160,49 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     3. CLEAN GSAP TIMELINES & SCROLLTRIGGERS
+     4. ELEGANT 3D CARD PERSPECTIVE TILT (Zero-Lag Transform)
+     ========================================================================== */
+  const projectCards = document.querySelectorAll('.project-card');
+  if (!isTouchDevice) {
+    projectCards.forEach((card) => {
+      let isHovered = false;
+
+      card.addEventListener('mouseenter', () => {
+        isHovered = true;
+      });
+
+      card.addEventListener('mousemove', (e) => {
+        if (!isHovered) return;
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        // Subtle 3D tilt angle
+        const rotateY = x * 10;
+        const rotateX = -y * 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        isHovered = false;
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        card.style.transition = 'transform 0.4s ease';
+        setTimeout(() => {
+          card.style.transition = '';
+        }, 400);
+      });
+    });
+  }
+
+  /* ==========================================================================
+     5. CLEAN GSAP TIMELINES & SCROLLTRIGGERS
      ========================================================================== */
   if (window.gsap && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
 
     // Hero Section Entrance
-    const heroTL = gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.8 } });
+    const heroTL = gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.9 } });
 
     heroTL
       .from('.hero-badge', { opacity: 0, y: -10, duration: 0.5, delay: 0.1 })
@@ -150,8 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
         '.reveal-line',
         {
           y: '100%',
-          duration: 0.8,
-          stagger: 0.06,
+          duration: 0.9,
+          stagger: 0.07,
         },
         '-=0.3'
       )
@@ -171,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         onEnter: () => {
           gsap.to(counter, {
             innerText: target,
-            duration: 1.5,
+            duration: 1.6,
             ease: 'power2.out',
             snap: isDecimal ? { innerText: 0.1 } : { innerText: 1 },
             onUpdate: function () {
@@ -217,19 +277,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     4. PORTFOLIO FILTERING
+     6. PORTFOLIO FILTERING
      ========================================================================== */
   const filterButtons = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
 
   filterButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
       filterButtons.forEach((b) => {
-        b.classList.remove('bg-white', 'text-black', 'active');
+        b.classList.remove('bg-gold-500', 'text-black', 'font-semibold', 'active');
         b.classList.add('bg-white/5', 'text-white/60');
       });
 
-      btn.classList.add('bg-white', 'text-black', 'active');
+      btn.classList.add('bg-gold-500', 'text-black', 'font-semibold', 'active');
       btn.classList.remove('bg-white/5', 'text-white/60');
 
       const filter = btn.getAttribute('data-filter');
@@ -248,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     5. GENERATIVE AMBIENT AUDIO (NATIVE WEB AUDIO SYNTH)
+     7. GENERATIVE AMBIENT AUDIO & CRYSTAL HARMONICS
      ========================================================================== */
   const audioBtn = document.getElementById('audio-toggle');
   const audioLabel = document.getElementById('audio-label');
@@ -265,6 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
         masterGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
         masterGain.connect(audioCtx.destination);
 
+        // Elegant fundamental chord (A2 110Hz + E3 164.81Hz)
         droneOsc1 = audioCtx.createOscillator();
         droneOsc1.type = 'sine';
         droneOsc1.frequency.setValueAtTime(110, audioCtx.currentTime);
@@ -275,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(320, audioCtx.currentTime);
+        filter.frequency.setValueAtTime(300, audioCtx.currentTime);
 
         droneOsc1.connect(filter);
         droneOsc2.connect(filter);
@@ -290,10 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
-      masterGain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 1.2);
+      masterGain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 1.5);
 
       isPlayingAudio = true;
-      audioLabel.textContent = 'SOUND [ON]';
+      audioLabel.textContent = 'ATMOSPHERE [ON]';
       audioBtn.classList.remove('sound-paused');
     } else {
       if (masterGain && audioCtx) {
@@ -301,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
         masterGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.8);
       }
       isPlayingAudio = false;
-      audioLabel.textContent = 'SOUND [OFF]';
+      audioLabel.textContent = 'ATMOSPHERE [OFF]';
       audioBtn.classList.add('sound-paused');
     }
   }
